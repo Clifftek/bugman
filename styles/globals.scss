@@ -111,12 +111,15 @@ a {
     lg:font-semibold cursor-pointer;
   }
   
-  // .tooltip {
-  //   @apply absolute w-auto p-2 m-2 min-w-max bottom-16 
-  //   rounded-md shadow-md text-white
-  //   text-xs font-bold transition-all
-  //   duration-300 scale-0 origin-left;
-  // }
-  
+  .tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max bottom-16 
+    rounded-md shadow-md text-white
+    text-xs font-bold transition-all
+    duration-300 scale-0 origin-left;
+  }
+
+  .switch {
+    @apply form-check-input appearance-none w-11 -ml-10 rounded-full float-left h-6 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm
+  }
 }
 

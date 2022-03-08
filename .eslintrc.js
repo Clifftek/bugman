@@ -28,11 +28,11 @@ module.exports = {
     },
   },
   rules: {
-    '@next/next/no-server-import-in-page': 1,
-    'max-len': 1,
-    'require-jsdoc': 1,
-    '@next/next/link-passhref': 1,
-    'no-tabs': 1,
-    'jest/valid-expect': 1,
+    '@next/next/no-server-import-in-page': 0,
+    'max-len': 0,
+    'require-jsdoc': 0,
+    '@next/next/link-passhref': 0,
+    'no-tabs': 0,
+    'jest/valid-expect': 0,
   },
 };

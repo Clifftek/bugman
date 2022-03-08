@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -15,7 +14,7 @@ const Header = () => {
         <div className="mb-2 flex items-center justify-between lg:float-left lg:mb-2">
           <Link key="brand" href="/" passHref={true}>
             <span className="display-font cursor-pointer text-6xl text-secondary">
-              Bugman
+              1300 Bugman
             </span>
           </Link>
           <div className="lg:hidden text-secondary">
