@@ -1,0 +1,45 @@
+name: CI
+
+on: {
+  push: {
+    branches: [main]
+  },
+  pull_request: {
+    branches: [ main ]
+  }
+}
+
+jobs:
+  eslint:
+    name: Lint codebase
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: npm ci
+      - name: Run eslint
+        run: npm run lint
+
+  # tests:
+  #   name: Test codebase
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest, macos-latest]
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     - name: Install packages
+  #       run: npm ci
+  #     - name: Run tests
+  #       run: npm run test:ci

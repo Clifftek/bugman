@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  // &:before{
+  //   content:'';
+  //   content: "";
+  //   height: 100vh;
+  //   width: 100%;
+  //   // background: linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 59%, rgba(255, 255, 255, 0.65) 100%),
+  //   //   url("../public/bg.png");
+  //   position: fixed;
+  //   left: 0;
+  //   top: 0;
+  //   z-index: -1;
+  //   background-position: 50% 50%;
+  //   background-size: 100%;
+  //   background-repeat: no-repeat;
+  // }
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.display-font {
+  font-family: "Bebas Neue", cursive;
+}
+
+.text-shadow {
+  text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
+}
+
+.adjacent-post {
+  & .arrow-btn {
+    transition: width 300ms ease;
+    width: 50px;
+  }
+  &:hover {
+    & .arrow-btn {
+      width: 60px;
+    }
+  }
+}
+
+.react-multi-carousel-list {
+  & .arrow-btn {
+    transition: width 300ms ease;
+    width: 50px;
+    &:hover {
+      width: 60px;
+    }
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  .color-secondary {
+    @apply bg-green-500;
+  }
+
+  .color-secondary-opacity {
+    @apply bg-green-500/[0.60];
+  }
+
+  .color-primary {
+    @apply bg-violet-600;
+  }
+
+  .color-primary-opacity {
+    @apply bg-violet-600/[0.90];
+  }
+
+  .text-secondary {
+    @apply text-green-500;
+  }
+
+  .text-primary {
+    @apply text-violet-600;
+  }
+
+  .text-normal {
+    @apply text-slate-900
+  }
+}
+
+@layer components {
+
+  .contact-links {
+    @apply mx-auto flex h-14 w-20 items-center justify-center 
+    rounded-lg lg:shadow-lg transition-all duration-200
+    ease-linear lg:h-20 lg:rounded-[40%] lg:hover:rounded
+    lg:font-semibold cursor-pointer;
+  }
+  
+  // .tooltip {
+  //   @apply absolute w-auto p-2 m-2 min-w-max bottom-16 
+  //   rounded-md shadow-md text-white
+  //   text-xs font-bold transition-all
+  //   duration-300 scale-0 origin-left;
+  // }
+  
+}
+
