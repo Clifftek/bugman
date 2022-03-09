@@ -9,15 +9,15 @@ const Header = () => {
   };
 
   return (
-    <div className="mb-2 w-full color-primary px-4 lg:mx-auto lg:px-24 lg:py-2">
-      <div className="inline-block w-full border-b-2 border-white py-2 lg:py-6">
+    <div className="mb-2 w-full px-4 lg:mx-auto lg:px-24 lg:py-2">
+      <div className="inline-block w-full border-b-2 border-green-500 py-2 lg:py-6">
         <div className="mb-2 flex items-center justify-between lg:float-left lg:mb-2">
           <Link key="brand" href="/" passHref={true}>
-            <span className="display-font cursor-pointer text-6xl text-secondary">
+            <span className="display-font cursor-pointer text-6xl text-primary">
               1300 Bugman
             </span>
           </Link>
-          <div className="lg:hidden text-secondary">
+          <div className="lg:hidden text-primary">
             <button onClick={expandMenu}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

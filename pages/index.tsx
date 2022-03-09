@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import { Customers, JobPreview, TermiteSystems } from '../components'
+import Head from 'next/head';
+import { Customers, JobPreview, TermiteSystems } from '../components';
 
 export default function Home() {
   return (
-    <div className='px-4 mb-8 lg:container lg:mx-auto lg:mb-8 lg:px-10'>
+    <div className='mb-8 p-1 lg:container lg:mx-auto lg:mb-8 lg:px-10'>
       <Head>
         <title>Bugman</title>
       </Head>
@@ -11,11 +11,11 @@ export default function Home() {
         <div className='col-span-1 lg:col-span-8'>
           <JobPreview />
         </div>
-        <div className="col-span-1 lg:col-span-4">
+        <div className='col-span-1 lg:col-span-4'>
           <TermiteSystems />
           <Customers />
         </div>
       </div>
     </div>
-  )
+  );
 }

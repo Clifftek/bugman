@@ -119,7 +119,7 @@ a {
   }
 
   .switch {
-    @apply form-check-input appearance-none w-11 -ml-10 rounded-full float-left h-6 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm
+    @apply form-check-input appearance-none w-9 lg:w-11 -ml-10 rounded-full float-left h-5 lg:h-6 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm
   }
 }
 
