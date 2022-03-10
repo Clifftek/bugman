@@ -4,3 +4,4 @@ export { default as Customers } from './customers/Customers';
 export { default as TermiteSystems } from './termite-systems/TermiteSystems';
 export { default as JobPreview } from './jobPreview/JobPreview';
 export { default as Job } from './job/Job';
+export { default as Loader } from './Loader/Loader';
