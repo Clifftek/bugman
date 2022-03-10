@@ -1,12 +1,13 @@
-import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { JobInterface } from '../../index.dev';
-import faunaQueries from '../../services/faunadb';
 import Job from '../job/Job';
 
-const JobPreview = ({ jobs }: any) => {
-  console.log('in component ' + jobs)
+type Props = {
+  jobs: JobInterface[]
+}
+
+const JobPreview = ({ jobs }: Props) => {
   return (
     <>
       <div className='color-primary flex w-full justify-between rounded-t p-2 px-4'>
@@ -72,25 +73,6 @@ const JobPreview = ({ jobs }: any) => {
       </div>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const { data } = await faunaQueries.getUncompletedJobs();
-    console.log('data ' + data);
-    return {
-      props: {
-        jobs: data
-      },
-    };
-  } catch (error) {
-    console.log('error ' + error);
-    return {
-      props: {
-        data: [],
-      },
-    };
-  }
 };
 
 export default JobPreview;
