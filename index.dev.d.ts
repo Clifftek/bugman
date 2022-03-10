@@ -10,7 +10,7 @@ export interface CustomerInterface {
 }
 
 export interface JobInterface {
-  id: number;
+  id: string;
   title: string;
   customer: CustomerInterface;
   completed: boolean;

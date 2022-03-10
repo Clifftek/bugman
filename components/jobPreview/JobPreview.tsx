@@ -1,22 +1,15 @@
+import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import React from 'react';
-import useSWR from 'swr';
 import { JobInterface } from '../../index.dev';
-import getUncompletedJobs from '../../pages/api/getUncompletedJobs';
+import faunaQueries from '../../services/faunadb';
 import Job from '../job/Job';
-import Loader from '../Loader/Loader';
 
-
-const JobPreview = () => {
-  const { data: jobs, error } = useSWR<any>("api/getUncompletedJobs/", getUncompletedJobs);
-
-  if (error) return <div>failed to load</div>
-  if (!jobs) return <Loader />
-
-  console.log(jobs);
+const JobPreview = ({ jobs }: any) => {
+  console.log('in component ' + jobs)
   return (
     <>
-      <div className='color-primary p-2 flex w-full justify-between px-4 rounded-t'>
+      <div className='color-primary flex w-full justify-between rounded-t p-2 px-4'>
         <p className='text-secondary self-center text-4xl font-semibold'>
           Jobs
         </p>
@@ -63,16 +56,41 @@ const JobPreview = () => {
       <div className='color-primary mb-4 h-[85vh] w-full overflow-auto rounded-b p-2 lg:mb-0'>
         <div className='w-full overflow-auto rounded'>
           <div className='mt-2 w-full'>
-            {jobs.map((job: JobInterface) => (
-              <Link key={job.id} href={`/jobs/${job.id}`}>
-                <Job job={job} />
-              </Link>
-            ))}
+            {jobs &&
+              jobs.length > 0 &&
+              jobs.map((job: JobInterface) => (
+                <Link key={job.id} href={`/jobs/${job.id}`}>
+                  <Job job={job} />
+                </Link>
+              ))}
+            {!jobs ||
+              (jobs.length === 0 && (
+                <p className='text-secondary text-xl'>No Jobs Yet</p>
+              ))}
           </div>
         </div>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const { data } = await faunaQueries.getUncompletedJobs();
+    console.log('data ' + data);
+    return {
+      props: {
+        jobs: data
+      },
+    };
+  } catch (error) {
+    console.log('error ' + error);
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
 };
 
 export default JobPreview;

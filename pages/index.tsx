@@ -1,5 +1,7 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Customers, JobPreview, TermiteSystems } from '../components';
+import faunaQueries from '../services/faunadb';
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 namespace NodeJS {
   interface ProcessEnv {
-    FAUNA_ADMIN_KEY: string;
+    NEXT_PUBLIC_FAUNADB_KEY: string;
   }
 }
