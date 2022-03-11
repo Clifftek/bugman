@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Customers, JobPreview, TermiteSystems } from '../components';
 import { JobInterface } from '../index.dev';
-import faunaQueries from '../services/faunadb';
+import jobQueries from '../services/JobsQueryManager.ts';
 
 type Props = {
   jobs: JobInterface[]
@@ -18,7 +18,7 @@ const Home = ({ jobs }: Props) => {
         <div className='col-span-1 lg:col-span-8'>
           <JobPreview jobs={jobs} />
         </div>
-        <div className='col-span-1 lg:col-span-4'>
+        <div className='hidden lg:block lg:col-span-4'>
           <TermiteSystems />
           <Customers />
         </div>
@@ -29,7 +29,7 @@ const Home = ({ jobs }: Props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const { data: jobs } = await faunaQueries.getUncompletedJobs();
+    const { data: jobs } = await jobQueries.getUncompletedJobs();
     return {
       props: {
         jobs,

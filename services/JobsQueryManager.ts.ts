@@ -41,5 +41,5 @@ class QueryManager {
   }
 }
 
-const faunaQueries = new QueryManager();
-export default faunaQueries;
+const jobQueries = new QueryManager();
+export default jobQueries;
