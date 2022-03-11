@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Customers, JobPreview, TermiteSystems } from '../components';
 import { JobInterface } from '../index.dev';
-import jobQueries from '../services/JobsQueryManager.ts';
+import jobQueries from '../services/faunadb/JobsQueryManager.ts';
 
 type Props = {
   jobs: JobInterface[]

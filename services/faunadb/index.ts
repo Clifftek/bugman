@@ -1,1 +1,1 @@
-export { default as jobQueries } from '../JobsQueryManager.ts';
+export { default as jobQueries } from './JobsQueryManager.ts';

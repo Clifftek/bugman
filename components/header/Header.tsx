@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { hamburgerMenuSVG } from '../../utils';
 
 const Header = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -12,7 +13,7 @@ const Header = () => {
     <div className="mb-2 w-full px-4 lg:mx-auto lg:px-24 lg:py-2">
       <div className="inline-block w-full border-b-2 border-green-500 py-2 lg:py-6">
         <div className="mb-2 flex items-center justify-between lg:float-left lg:mb-2">
-          <Link key="brand" href="/" passHref={true}>
+          <Link key="brand" href="/">
             <span className="display-font cursor-pointer text-6xl text-primary">
               1300 Bugman
             </span>
@@ -25,20 +26,11 @@ const Header = () => {
                 x="0px" y="0px"
                 viewBox="0 0 384.97 384.97"
                 xmlSpace="preserve"
-                className='h-9 w-9 cursor-pointer'
+                className='h-8 w-8 cursor-pointer'
                 fill='currentColor'
                 stroke='currentColor'
               >
-                <g>
-                  <g id="Menu" >
-                    <path strokeWidth='5' d="M12.03,84.212h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
-			                        C5.39,60.152,0,65.541,0,72.182C0,78.823,5.39,84.212,12.03,84.212z"/>
-                    <path strokeWidth='5' d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
-			                        S379.58,180.455,372.939,180.455z"/>
-                    <path strokeWidth='5' d="M372.939,300.758H12.03c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h360.909
-			                        c6.641,0,12.03-5.39,12.03-12.03C384.97,306.147,379.58,300.758,372.939,300.758z"/>
-                  </g>
-                </g>
+                {hamburgerMenuSVG()}
               </svg>
             </button>
             {clicked && (
@@ -91,8 +83,8 @@ const Header = () => {
 export default Header;
 
 const links = [
-  { name: 'Jobs', slug: 'jobs' },
   { name: 'Termite Systems', slug: 'systems' },
+  { name: 'Quotes', slug: 'quotes' },
+  { name: 'Stock Manager', slug: 'stock-manager' },
   { name: 'Customers', slug: 'customers' },
-  { name: 'Contact', slug: 'contact' },
 ];

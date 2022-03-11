@@ -13,7 +13,7 @@ const Job = ({ job }: Props) => {
       <div className='grid grid-cols-2'>
         <div className='lg:flex lg:items-center lg:justify-between'>
           <p className='text-xl font-semibold'>{job.title}</p>
-          <p className='text-lg font-semibold'>{job.customer.name}</p>
+          <p className='text-lg'>{job.customer.name}</p>
           <p>{job.customer.phoneNumber}</p>
         </div>
         <div className='form-check form-switch lg:justify-self-end pr-2'>
