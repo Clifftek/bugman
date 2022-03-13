@@ -1,16 +1,18 @@
 import React from 'react';
-import Header from '../header/Header';
+import Nav from '../navigation/Nav';
 
 type Props = {
   children: any;
 };
 
-const Layout = ({children}: Props) => {
+const Layout = ({ children }: Props) => {
   return (
-    <>
-      <Header />
-      {children}
-    </>
+    <div className='lg:grid lg:gap-8'>
+      <div className=''>
+        <div className='lg:mt-24 h-[94vh] overflow-auto'>{children}</div>
+        <Nav />
+      </div>
+    </div>
   );
 };
 

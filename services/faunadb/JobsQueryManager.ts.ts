@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import faunadb from 'faunadb';
+import { JobInterface } from '../../index.dev';
 import { flattenData } from './flattenData';
 
 const {
@@ -25,6 +27,13 @@ class QueryManager {
     });
   }
 
+  getAllJobs() {
+    return this.client
+      .query()
+      .then((res: any) => flattenData(res))
+      .catch((error: any) => error);
+  }
+
   getUncompletedJobs() {
     return this.client
       .query(
@@ -40,6 +49,34 @@ class QueryManager {
   getJobById(id: string) {
     return this.client
       .query(Get(Ref(Collection('Jobs'), id)))
+      .then((res: any) => flattenData(res))
+      .catch((error: any) => error);
+  }
+
+  createJob(data: JobInterface) {
+    return this.client
+      .query()
+      .then((res: any) => flattenData(res))
+      .catch((error: any) => error);
+  }
+
+  updateJob(data: JobInterface, id: string) {
+    return this.client
+      .query()
+      .then((res: any) => flattenData(res))
+      .catch((error: any) => error);
+  }
+
+  completeJob(id: string) {
+    return this.client
+      .query()
+      .then((res: any) => flattenData(res))
+      .catch((error: any) => error);
+  }
+
+  deleteJob(id: string) {
+    return this.client
+      .query()
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { JobPreview, Loader } from '../../components';
+import { JobFeed, Loader } from '../../components';
 import { CustomerInterface, JobInterface } from '../../index.dev';
 import { jobQueries } from '../../services/faunadb';
 import { pencilSVG, trashcanSVG } from '../../utils';
@@ -15,7 +15,7 @@ type Props = {
     description: string;
     price: number;
   };
-  jobs: JobInterface[]
+  jobs: JobInterface[];
 };
 
 const JobCard = ({ job, jobs }: Props) => {
@@ -26,80 +26,80 @@ const JobCard = ({ job, jobs }: Props) => {
   }
 
   return (
-    <div className='grid-cols-1 lg:container lg:mx-auto lg:grid lg:grid-cols-12 lg:gap-8'>
-      <div className='color-primary col-span-1 mx-2 mb-2 overflow-auto rounded p-2 lg:col-span-8'>
+    <div className='grid-cols-1 lg:mx-4 lg:grid lg:grid-cols-12 lg:gap-8 lg:rounded'>
+      <div className='col-span-1 overflow-auto bg-neutral-200 p-2 lg:col-span-8'>
         <div className='flex w-full items-center justify-end'>
-          <div className='mb-2 rounded bg-neutral-200 p-2'>
-            <button
-              type='button'
-              className='mr-1 rounded bg-red-500 p-2 lg:p-4'
+          <button type='button' className='mr-1 p-2'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              xmlnsXlink='http://www.w3.org/1999/xlink'
+              viewBox='0 0 325.284 325.284'
+              xmlSpace='preserve'
+              className='stroke-4 h-7 w-7 fill-red-500 stroke-red-500'
+              fill='currentColor'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                xmlnsXlink='http://www.w3.org/1999/xlink'
-                viewBox='0 0 325.284 325.284'
-                xmlSpace='preserve'
-                className='h-8 w-8 text-slate-900'
-                fill='currentColor'
-              >
-                {trashcanSVG()}
-              </svg>
-            </button>
-            <button type='button' className='rounded bg-yellow-500 p-2 lg:p-4'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                xmlnsXlink='http://www.w3.org/1999/xlink'
-                viewBox='0 0 64 64'
-                enableBackground='new 0 0 64 64'
-                xmlSpace='preserve'
-                className='h-8 w-8 text-slate-900'
-                fill='currentColor'
-              >
-                {pencilSVG()}
-              </svg>
-            </button>
-          </div>
+              {trashcanSVG()}
+            </svg>
+          </button>
+          <button type='button' className='p-2'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              xmlnsXlink='http://www.w3.org/1999/xlink'
+              viewBox='0 0 64 64'
+              enableBackground='new 0 0 64 64'
+              xmlSpace='preserve'
+              className='stroke-4 h-7 w-7 fill-yellow-500 stroke-yellow-500'
+              fill='currentColor'
+            >
+              {pencilSVG()}
+            </svg>
+          </button>
         </div>
-        <div className='text-normal my-3 w-full'>
-          <p className='pl-4 text-4xl font-semibold lg:pl-0 lg:text-center'>{job.title}</p>
-          <p className='pl-4 text-xl font-semibold lg:pl-0 lg:text-center'>
-            @ {job.customer.address.streetAddress}, {job.customer.address.city}
-          </p>
-          <div className='my-2 mx-6 border-b' />
-          <p className='text-secondary mt-6 mb-2 text-3xl lg:text-4xl font-semibold'>
-            Customer Details:
-          </p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>{job.customer.name}</p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>
-            {job.customer.email}
-          </p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>
-            {job.customer.phoneNumber}
-          </p>
-          <p className='text-secondary my-2 text-3xl font-semibold lg:text-4xl'>
-            Job Details:
-          </p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>{job.title}</p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>
-            {job.completed.toString()}
-          </p>
-          <p className='pl-4 pb-2 text-xl font-semibold'>
-            Quoted: ${job.price}
-          </p>
-          <p className='text-secondary my-2 text-3xl font-semibold lg:text-4xl'>
-            Notes:
-          </p>
-          <p className='pb-4 p-8 text-xl font-semibold'>{job.description}</p>
-          <textarea
-            className='mb-2 w-full rounded p-2'
-            cols={30}
-            rows={10}
-            placeholder='Add Notes....'
-          ></textarea>
+
+        <div className='p-2 border-2 rounded border-violet-500'>
+
+          <div className='text-primary my-3 w-full text-xl lg:text-center'>
+            <p className=''>{job.title}</p>
+            <p className=''>
+              @ {job.customer.address.streetAddress},{' '}
+              {job.customer.address.city}
+            </p>
+          </div>
+
+          <div className='my-3 w-full lg:text-center'>
+            <p className='text-normal mx-8 mb-4 border-b-2 border-neutral-300 text-center text-xl'>
+              Customer Details
+            </p>
+            <p className=''>{job.customer.name}</p>
+            <p className=''>{job.customer.email}</p>
+            <p className=''>{job.customer.phoneNumber}</p>
+          </div>
+
+          <div className='my-3 w-full lg:text-center'>
+            <p className='text-normal mx-8 mb-4 border-b-2 border-neutral-300 text-center text-xl'>
+              Job Details
+            </p>
+            <p className=''>{job.title}</p>
+            <p className=''>{job.completed.toString()}</p>
+            <p className=''>Quoted: ${job.price}</p>
+          </div>
+
+          <div className='mb-2 w-full lg:text-center'>
+            <p className='text-normal mx-8 mb-4 border-b-2 border-neutral-300 text-center text-xl'>
+              Notes
+            </p>
+            <p className=''>{job.description}</p>
+            <textarea
+              className='rounded-lg w-full p-2 mt-2'
+              cols={30}
+              rows={10}
+              placeholder='Add Notes....'
+            ></textarea>
+          </div>
         </div>
       </div>
       <div className='color-primary col-span-1 mb-2 hidden rounded lg:col-span-4 lg:block'>
-        <JobPreview jobs={jobs} />
+        <JobFeed jobs={jobs} />
       </div>
     </div>
   );
@@ -109,7 +109,6 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   try {
     const job: JobInterface = await jobQueries.getJobById(params.slug);
     const { data: jobs } = await jobQueries.getUncompletedJobs();
-
 
     return {
       props: {

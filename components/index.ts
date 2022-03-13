@@ -1,7 +1,6 @@
 export { default as Layout } from './layout/Layout';
-export { default as Header } from './header/Header';
-export { default as Customers } from './customers/Customers';
+export { default as Nav } from './navigation/Nav';
 export { default as TermiteSystems } from './termite-systems/TermiteSystems';
-export { default as JobPreview } from './jobPreview/JobPreview';
+export { default as JobFeed } from './jobFeed/JobFeed';
 export { default as Job } from './job/Job';
 export { default as Loader } from './Loader/Loader';
