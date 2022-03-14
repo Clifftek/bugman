@@ -6,7 +6,7 @@ export interface CustomerInterface {
     streetAddress: string;
     city: string;
     zipCode: number;
-  }
+  };
 }
 
 export interface JobInterface {

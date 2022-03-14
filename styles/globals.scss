@@ -10,21 +10,20 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  // &:before{
-  //   content:'';
-  //   content: "";
-  //   height: 100vh;
-  //   width: 100%;
-  //   // background: linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 59%, rgba(255, 255, 255, 0.65) 100%),
-  //   //   url("../public/bg.png");
-  //   position: fixed;
-  //   left: 0;
-  //   top: 0;
-  //   z-index: -1;
-  //   background-position: 50% 50%;
-  //   background-size: 100%;
-  //   background-repeat: no-repeat;
-  // }
+  &:before {
+    content: "";
+    content: "";
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(212, 212, 212, 0.3) 0%, rgba(212, 212, 212, 0.3) 90%, rgba(212, 212, 212, 0.7) 100%);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    background-position: 75% 75%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
 }
 
 #__next {
@@ -39,28 +38,6 @@ body {
 
 .text-shadow {
   text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
-}
-
-.adjacent-post {
-  & .arrow-btn {
-    transition: width 300ms ease;
-    width: 50px;
-  }
-  &:hover {
-    & .arrow-btn {
-      width: 60px;
-    }
-  }
-}
-
-.react-multi-carousel-list {
-  & .arrow-btn {
-    transition: width 300ms ease;
-    width: 50px;
-    &:hover {
-      width: 60px;
-    }
-  }
 }
 
 a {
@@ -86,7 +63,7 @@ a {
   }
 
   .color-primary-opacity {
-    @apply bg-violet-600/[0.90];
+    @apply bg-violet-600/[0.80];
   }
 
   .text-secondary {
@@ -98,19 +75,18 @@ a {
   }
 
   .text-normal {
-    @apply text-slate-900
+    @apply text-slate-900;
   }
 }
 
 @layer components {
-
   .contact-links {
     @apply mx-auto flex h-14 w-20 items-center justify-center 
     rounded-lg lg:shadow-lg transition-all duration-200
     ease-linear lg:h-20 lg:rounded-[40%] lg:hover:rounded
     lg:font-semibold cursor-pointer;
   }
-  
+
   .tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max bottom-16 
     rounded-md shadow-md text-white
@@ -119,7 +95,6 @@ a {
   }
 
   .switch {
-    @apply form-check-input appearance-none w-9 lg:w-11 -ml-10 rounded-full float-left h-5 lg:h-6 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm
+    @apply form-check-input appearance-none w-9 lg:w-11 -ml-10 rounded-full float-left h-5 lg:h-6 bg-green-500 align-top bg-no-repeat bg-contain bg-violet-600 focus:outline-none cursor-pointer shadow-sm;
   }
 }
-
