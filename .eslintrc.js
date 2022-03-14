@@ -29,6 +29,7 @@ module.exports = {
   },
   rules: {
     '@next/next/no-server-import-in-page': 0,
+    '@next/next/no-html-link-for-pages': 0,
     'max-len': 0,
     'require-jsdoc': 0,
     '@next/next/link-passhref': 0,
