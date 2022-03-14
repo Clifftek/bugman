@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import React from 'react';
 import { JobInterface } from '../../index.dev';
+import { addIcon } from '../../utils';
 import Job from '../job/Job';
 
 type Props = {
@@ -9,15 +11,22 @@ type Props = {
 const JobFeed = ({ jobs }: Props) => {
   return (
     <>
-      <div className='color-primary flex w-full justify-between p-2 px-4'>
-        <p className='text-secondary self-center text-2xl font-semibold'>
-          Jobs
-        </p>
-        <div className='align-middle'>
-          <button type='button' className='rounded p-0.5 lg:p-2'>
-            <p className='text-secondary px-2 text-3xl font-semibold'>&#43;</p>
-          </button>
-        </div>
+      <div className='color-primary flex w-full items-center justify-between p-3'>
+        <p className='text-xl text-secondary font-semibold'>Jobs</p>
+        <Image
+          src='/icon-192x192.png'
+          alt='bugman logo'
+          className=''
+          height='38px'
+          width='43px'
+        />
+        <button type='button' className='rounded p-0.5 lg:p-2'>
+          <p className='text-secondary px-2 text-3xl font-semibold'>
+            <svg viewBox='0 0 52 52' fill='currentColor' className='h-8 w-8 '>
+              {addIcon()}
+            </svg>
+          </p>
+        </button>
       </div>
       <div className='color-primary w-full overflow-auto rounded-b lg:mb-0'>
         <div className='w-full overflow-auto'>

@@ -28,12 +28,11 @@ const Job = ({ job }: Props) => {
             </label>
           ) : (
             <label
-              className='form-check-label inline-block pl-2 text-green-500'
+              className='form-check-label inline-block pl-7 text-green-500'
               htmlFor='jobComplete'
             >
               Completed
               <br />
-              <span className='pt-2'>Paid: ${job.price}</span>
             </label>
           )}
           <input

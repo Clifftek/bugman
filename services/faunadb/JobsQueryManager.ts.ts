@@ -29,7 +29,10 @@ class QueryManager {
 
   getAllJobs() {
     return this.client
-      .query()
+      .query(
+        
+      )
+      .then((res: any) => console.log(res))
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }

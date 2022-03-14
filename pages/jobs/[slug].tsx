@@ -28,8 +28,8 @@ const JobCard = ({ job, jobs }: Props) => {
   return (
     <div className='grid-cols-1 lg:mx-4 lg:grid lg:grid-cols-12 lg:gap-8 lg:rounded'>
       <div className='col-span-1 overflow-auto bg-neutral-200 p-2 lg:col-span-8'>
-        <div className='flex w-full items-center justify-end'>
-          <button type='button' className='mr-1 p-2'>
+        <div className='mt-1 flex w-full items-center justify-end'>
+          <button type='button' className='mr-1 p-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -41,7 +41,7 @@ const JobCard = ({ job, jobs }: Props) => {
               {trashcanSVG()}
             </svg>
           </button>
-          <button type='button' className='p-2'>
+          <button type='button' className='p-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -56,8 +56,7 @@ const JobCard = ({ job, jobs }: Props) => {
           </button>
         </div>
 
-        <div className='p-2 border-2 rounded border-violet-500'>
-
+        <div className='mb-4 rounded border-2 border-violet-500 p-2'>
           <div className='text-primary my-3 w-full text-xl lg:text-center'>
             <p className=''>{job.title}</p>
             <p className=''>
@@ -73,15 +72,23 @@ const JobCard = ({ job, jobs }: Props) => {
             <p className=''>{job.customer.name}</p>
             <p className=''>{job.customer.email}</p>
             <p className=''>{job.customer.phoneNumber}</p>
+            <p className=''>
+              {job.customer.address.streetAddress}, {job.customer.address.city},{' '}
+              {job.customer.address.zipCode}
+            </p>
           </div>
 
-          <div className='my-3 w-full lg:text-center'>
-            <p className='text-normal mx-8 mb-4 border-b-2 border-neutral-300 text-center text-xl'>
-              Job Details
-            </p>
-            <p className=''>{job.title}</p>
-            <p className=''>{job.completed.toString()}</p>
-            <p className=''>Quoted: ${job.price}</p>
+          <p className='text-normal mx-8 mb-4 border-b-2 border-neutral-300 text-center text-xl'>
+            Job Details
+          </p>
+          <div className='my-3 grid w-full grid-cols-2 lg:text-center'>
+            <div>
+              <p className=''>{job.title}</p>
+              <p className=''>Price: ${job.price}</p>
+            </div>
+            <div>
+              <p className='text-center'>{job.completed.toString()}</p>
+            </div>
           </div>
 
           <div className='mb-2 w-full lg:text-center'>
@@ -90,7 +97,7 @@ const JobCard = ({ job, jobs }: Props) => {
             </p>
             <p className=''>{job.description}</p>
             <textarea
-              className='rounded-lg w-full p-2 mt-2'
+              className='mt-2 w-full rounded-lg p-2 focus:outline-none focus:ring focus:ring-violet-500'
               cols={30}
               rows={10}
               placeholder='Add Notes....'
