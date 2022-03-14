@@ -3,10 +3,9 @@ import Head from 'next/head';
 import { JobFeed, TermiteSystems } from '../components';
 import { JobInterface } from '../index.dev';
 import jobQueries from '../services/faunadb/JobsQueryManager.ts';
-
 type Props = {
-  jobs: JobInterface[]
-}
+  jobs: JobInterface[];
+};
 
 const Home = ({ jobs }: Props) => {
   return (
@@ -18,7 +17,7 @@ const Home = ({ jobs }: Props) => {
         <div className='col-span-1 lg:col-span-8'>
           <JobFeed jobs={jobs} />
         </div>
-        <div className='hidden lg:block lg:col-span-4'>
+        <div className='hidden lg:col-span-4 lg:block'>
           <TermiteSystems />
         </div>
       </div>

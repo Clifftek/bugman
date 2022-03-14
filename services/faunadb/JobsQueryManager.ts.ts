@@ -9,11 +9,14 @@ const {
   Map,
   Collection,
   Documents,
+  Update,
   Lambda,
   Var,
   Match,
   Index,
   Ref,
+  Create,
+  Delete,
 } = faunadb.query;
 
 class QueryManager {
@@ -29,10 +32,7 @@ class QueryManager {
 
   getAllJobs() {
     return this.client
-      .query(
-        
-      )
-      .then((res: any) => console.log(res))
+      .query(Paginate(Documents(Collection('Jobs'))))
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }
@@ -58,29 +58,37 @@ class QueryManager {
 
   createJob(data: JobInterface) {
     return this.client
-      .query()
+      .query(Create(Collection('Jobs'), { data }))
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }
 
   updateJob(data: JobInterface, id: string) {
     return this.client
-      .query()
-      .then((res: any) => flattenData(res))
+      .query(
+        Update(Ref(Collection('Jobs'), id), {
+          data,
+        })
+      )
+      .then((res: any) => console.log(res))
       .catch((error: any) => error);
   }
 
-  completeJob(id: string) {
+  completeJob(id: string, value: boolean) {
     return this.client
-      .query()
-      .then((res: any) => flattenData(res))
+    .query(
+      Update(Ref(Collection('Jobs'), id), {
+        data: {completed: value},
+      })
+    )
+      .then((res: any) => console.log(res))
       .catch((error: any) => error);
   }
 
   deleteJob(id: string) {
     return this.client
-      .query()
-      .then((res: any) => flattenData(res))
+      .query(Delete(Ref(Collection('Jobs'), id)))
+      .then((res: any) => console.log(res))
       .catch((error: any) => error);
   }
 }

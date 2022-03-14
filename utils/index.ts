@@ -7,3 +7,4 @@ export { default as search } from './svg/search';
 export { default as stock } from './svg/stock';
 export { default as termites } from './svg/termites';
 export { default as addIcon } from './svg/add';
+export { default as logoutIcon } from './svg/logoutIcon';
