@@ -9,7 +9,7 @@ type Props = {
   handleClose: () => void;
 };
 
-const variants = {
+const dropIn: any = {
   hidden: {
     y: '-100vh',
     opacity: 0,
@@ -37,7 +37,7 @@ const Modal = ({ handleClose }: Props) => {
         drag
         onClick={(e) => e.stopPropagation()}
         className='modal'
-        variants={variants}
+        variants={dropIn}
         initial='hidden'
         animate='visible'
         exit='exit'
