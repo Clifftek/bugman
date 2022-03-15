@@ -54,7 +54,9 @@ const JobCard = ({ job, jobs }: Props) => {
             <FontAwesomeIcon
               icon={faTrashCan}
               className='text-red-500'
-              size='xl'
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //@ts-ignore
+              size="xl"
             />
           </button>
           <button type='button' className=' p-2'>
@@ -63,6 +65,8 @@ const JobCard = ({ job, jobs }: Props) => {
                 <FontAwesomeIcon
                   icon={faPencil}
                   className='text-yellow-500'
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  //@ts-ignore
                   size='xl'
                 />
               </span>
@@ -88,7 +92,11 @@ const JobCard = ({ job, jobs }: Props) => {
             >
               <Link href='/new/customer'>
                 <span>
-                  <FontAwesomeIcon icon={faPlus} size='xl' />
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+                    size='xl' />
                 </span>
               </Link>
             </button>

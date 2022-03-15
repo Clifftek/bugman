@@ -7,4 +7,3 @@ namespace NodeJS {
     AUTH0_AUDIENCE: string;
   }
 }
-

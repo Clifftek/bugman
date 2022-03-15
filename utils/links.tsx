@@ -12,6 +12,8 @@ const links = [
   {
     name: 'Home',
     slug: '',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     icon: <FontAwesomeIcon icon={faHouse} size='xl' />,
   },
   {
@@ -33,16 +35,22 @@ const links = [
   {
     name: 'search',
     slug: 'search',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     icon: <FontAwesomeIcon icon={faMagnifyingGlass} size='xl' />,
   },
   {
     name: 'Quotes',
     slug: 'quotes',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     icon: <FontAwesomeIcon icon={faFileInvoiceDollar} size='xl'/>,
   },
   {
     name: 'Stock Manager',
     slug: 'stock-manager',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     icon: <FontAwesomeIcon icon={faBoxesStacked} size='xl' />,
   },
 ];
