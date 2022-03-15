@@ -25,13 +25,13 @@ const Nav = () => {
   }, [updateTarget]);
 
   return (
-    <div className='color-primary sticky bottom-0 flex h-20 w-full border-t-2 border-green-500 lg:border-t-0 lg:fixed lg:top-0 lg:mx-auto lg:mb-8 lg:mt-0'>
-      <div className='flex w-full items-start justify-evenly lg:items-center lg:justify-center lg:flex-row'>
+    <div className='color-primary sticky bottom-0 flex h-20 w-full border-t-2 border-indigo-200 lg:border-t-0 lg:fixed lg:top-0 lg:mx-auto lg:mb-8 lg:mt-0'>
+      <div className='flex w-full justify-evenly lg:items-center lg:justify-center lg:flex-row'>
         {links.map((link) => (
-          <div key={link.slug} className='flex p-4 rounded-xl lg:border-0'>
+          <div key={link.slug} className='px-5 pt-3'>
             <Link key={link.slug} href={`/${link.slug}`} passHref={true}>
-              <span className='display-font text-green-500 lg:p-4 lg:text-3xl'>
-                {targetReached ? link.icon() : link.name}
+              <span className='display-font text-indigo-200 lg:p-4 lg:text-3xl'>
+                {targetReached ? link.icon : link.name}
               </span>
             </Link>
           </div>

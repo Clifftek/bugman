@@ -15,7 +15,11 @@ body {
     content: "";
     height: 100vh;
     width: 100%;
-    background: linear-gradient(rgba(212, 212, 212, 0.3) 0%, rgba(212, 212, 212, 0.3) 90%, rgba(212, 212, 212, 0.7) 100%);
+    background: linear-gradient(
+      rgba(212, 212, 212, 0.3) 0%,
+      rgba(212, 212, 212, 0.3) 90%,
+      rgba(212, 212, 212, 0.7) 100%
+    );
     position: fixed;
     left: 0;
     top: 0;
@@ -96,5 +100,13 @@ a {
 
   .switch {
     @apply form-check-input appearance-none w-9 lg:w-11 -ml-10 rounded-full float-left h-5 lg:h-6 bg-green-500 align-top bg-no-repeat bg-contain bg-violet-600 focus:outline-none cursor-pointer shadow-sm;
+  }
+
+  .backDrop {
+    @apply absolute top-0 left-0 h-[100vh] w-full bg-slate-800/90 flex items-center justify-center
+  }
+
+  .modal {
+    @apply w-80 py-16 rounded-xl flex flex-col justify-center items-center bg-neutral-200
   }
 }

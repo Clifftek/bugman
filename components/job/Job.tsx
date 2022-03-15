@@ -1,54 +1,73 @@
-import React, { useState } from 'react';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import React, { MouseEvent } from 'react';
 import { JobInterface } from '../../index.dev';
+import { jobQueries } from '../../services/faunadb';
 
 type Props = {
   job: JobInterface;
 };
 
 const Job = ({ job }: Props) => {
-  const [jobDone, setJobDone] = useState<boolean>(false);
+  const router = useRouter();
+  
+  const handleJobCompleted = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    await jobQueries.completeJob(job.id, !job.completed)
+      .then(router.reload());
+  }
 
   return (
-    <div className='h-[7rem] cursor-pointer overflow-hidden bg-neutral-200 p-1 border-t border border-neutral-300'>
+    <div className='h-20 cursor-pointer overflow-hidden border border-t border-neutral-300 bg-neutral-200 p-1'>
       <div className='grid grid-cols-2'>
         <div className='lg:flex lg:items-center lg:justify-between'>
           <p className='text-lg'>{job.title}</p>
-          <p className=''>{job.customer.name}</p>
-          <p>{job.customer.phoneNumber}</p>
+          <p className=''>{job.name}</p>
+          <p>{job.phoneNumber}</p>
         </div>
-        <div className='form-check form-switch lg:justify-self-end pr-2'>
-          {!jobDone ? (
-            <label
-              className='form-check-label inline-block text-red-500 pl-2'
-              htmlFor='jobComplete'
-            >
-              Uncompleted
-              <br />
-              <span className='pt-2'>Quoted: ${job.price}</span>
-            </label>
+        <div className='form-check form-switch justify-self-end'>
+          <div className='text-right'>
+            <p>{moment(job.time).format('hh:mm a')}</p>
+            <span className='pt-2'>Quoted: ${job.price}</span>
+          </div>
+          {!job.completed ? (
+            <>
+              <label
+                className='form-check-label inline-block pl-2 text-red-500'
+                htmlFor='jobComplete'
+              >
+                Uncompleted
+                <br />
+              </label>
+              <input
+                type='checkbox'
+                role='switch'
+                name='jobComplete'
+                className='switch'
+                onClick={(e) => handleJobCompleted(e)}
+              />
+            </>
           ) : (
-            <label
-              className='form-check-label inline-block pl-7 text-green-500'
-              htmlFor='jobComplete'
-            >
-              Completed
-              <br />
-            </label>
+            <>
+              <label
+                className='form-check-label inline-block pl-7 text-green-500'
+                htmlFor='jobComplete'
+              >
+                Completed
+                <br />
+              </label>
+              <input
+                type='checkbox'
+                role='switch'
+                name='jobComplete'
+                className='switch'
+                defaultChecked={true}
+                onClick={(e) => handleJobCompleted(e)}
+              />
+            </>
           )}
-          <input
-            type='checkbox'
-            role='switch'
-            name='jobComplete'
-            className='switch'
-            onClick={() => setJobDone(!jobDone)}
-          />
         </div>
-      </div>
-      <div className=''>
-        <p className=''>
-          {job.customer.address.streetAddress}, {job.customer.address.city},{' '}
-          {job.customer.address.zipCode}
-        </p>
       </div>
       <div className='hidden w-full lg:block'>
         <p className=''>{job.description}</p>

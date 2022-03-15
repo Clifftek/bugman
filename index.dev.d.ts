@@ -1,19 +1,15 @@
-export interface CustomerInterface {
-  name: string;
-  phoneNumber: string;
-  email: string;
-  address: {
-    streetAddress: string;
-    city: string;
-    zipCode: number;
-  };
-}
-
 export interface JobInterface {
   id: string;
   title: string;
-  customer: CustomerInterface;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  number: string | null;
+  street: string;
+  city: string;
+  zipCode: number | null;
   completed: boolean;
   description: string;
-  price: number;
+  price: number | null;
+  time: string;
 }

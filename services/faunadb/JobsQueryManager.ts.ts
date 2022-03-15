@@ -32,7 +32,12 @@ class QueryManager {
 
   getAllJobs() {
     return this.client
-      .query(Paginate(Documents(Collection('Jobs'))))
+      .query(
+        Map(
+          Paginate(Documents(Collection('Jobs'))),
+          Lambda('ref', Get(Var('ref')))
+        )
+      )
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }
@@ -70,25 +75,22 @@ class QueryManager {
           data,
         })
       )
-      .then((res: any) => console.log(res))
       .catch((error: any) => error);
   }
 
   completeJob(id: string, value: boolean) {
     return this.client
-    .query(
-      Update(Ref(Collection('Jobs'), id), {
-        data: {completed: value},
-      })
-    )
-      .then((res: any) => console.log(res))
+      .query(
+        Update(Ref(Collection('Jobs'), id), {
+          data: { completed: value },
+        })
+      )
       .catch((error: any) => error);
   }
 
   deleteJob(id: string) {
     return this.client
       .query(Delete(Ref(Collection('Jobs'), id)))
-      .then((res: any) => console.log(res))
       .catch((error: any) => error);
   }
 }
