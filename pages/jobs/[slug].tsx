@@ -166,6 +166,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
         job,
         jobs,
       },
+      revalidate: 3600,
     };
   } catch (error) {
     return {

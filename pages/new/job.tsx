@@ -25,7 +25,7 @@ const CreateJob = () => {
     },
     onSubmit: async (values) => {
       await jobQueries.createJob(values)
-        .then(router.push('/'));
+        .then(router.push(`/jobs/${values.id}`));
     },
   });
 

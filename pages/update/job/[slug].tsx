@@ -13,7 +13,7 @@ const UpdateJob = ({ job }: any) => {
     },
     onSubmit: async (values) => {
       await jobQueries.updateJob(values, job.id)
-        .then(router.push('/'));
+        .then(router.push(`/jobs/${values.id}`));
     },
   });
 
