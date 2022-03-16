@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { Header, JobFeed, TermiteSystems } from '../components';
 import { JobInterface } from '../index.dev';
@@ -27,14 +27,13 @@ const Home = ({ jobs }: Props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const { data: jobs } = await jobQueries.getUncompletedJobs();
     return {
       props: {
         jobs,
       },
-      revalidate: 3600,
     };
   } catch (error) {
     return {
