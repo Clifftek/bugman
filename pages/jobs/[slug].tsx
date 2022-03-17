@@ -6,41 +6,43 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import moment from 'moment';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { MouseEvent } from 'react';
-import { JobFeed, Loader } from '../../components';
-import { JobInterface } from '../../index.dev';
+import useSWR, { SWRResponse } from 'swr';
+import { ErrorMessage, Loader } from '../../components';
 import { jobQueries } from '../../services/faunadb';
 
-type Props = {
-  job: JobInterface;
-  jobs: JobInterface[];
-};
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const JobCard = ({ job, jobs }: Props) => {
+const JobCard = () => {
   const router = useRouter();
+  const { slug } = router.query;
+  const { data, error }: SWRResponse = useSWR(
+    slug ? `/api/jobs/${slug}` : null,
+    fetcher
+  );
+
   const formik = useFormik({
     initialValues: {
-      ...job
+      ...data,
     },
     onSubmit: async (values) => {
-      await jobQueries
-        .updateJob(values, job.id)
-        .then(router.push('/'));
+      await jobQueries.updateJob(values, data?.id).then(() => router.reload());
     },
   });
 
   const handleDelete = async (event: MouseEvent) => {
     event.preventDefault();
 
-    await jobQueries.deleteJob(job.id).then(router.push('/'));
+    await jobQueries.deleteJob(data?.id).then(() => router.replace('/'));
   };
 
   if (router.isFallback) {
     return <Loader />;
   }
+
+  if (error) return <ErrorMessage />;
 
   return (
     <div className='grid-cols-1 lg:mx-4 lg:grid lg:grid-cols-12 lg:gap-8 lg:rounded'>
@@ -56,11 +58,11 @@ const JobCard = ({ job, jobs }: Props) => {
               className='text-red-500'
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               //@ts-ignore
-              size="xl"
+              size='xl'
             />
           </button>
           <button type='button' className=' p-2'>
-            <Link href={`/update/job/${job.id}`}>
+            <Link href={`/update/job/${data?.id}`}>
               <span>
                 <FontAwesomeIcon
                   icon={faPencil}
@@ -76,9 +78,9 @@ const JobCard = ({ job, jobs }: Props) => {
 
         <div className='mb-4 p-2'>
           <div className='text-primary mb-3 w-full text-xl lg:text-center'>
-            <p className='text-3xl'>{job.title}</p>
+            <p className='text-3xl'>{data?.title}</p>
             <p className=''>
-              @ {job.number} {job.street}, {job.city}
+              @ {data?.number} {data?.street}, {data?.city}
             </p>
           </div>
 
@@ -95,16 +97,17 @@ const JobCard = ({ job, jobs }: Props) => {
                   <FontAwesomeIcon
                     icon={faPlus}
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-                    size='xl' />
+                    //@ts-ignore
+                    size='xl'
+                  />
                 </span>
               </Link>
             </button>
-            <p className=''>{job.name}</p>
-            <p className=''>{job.email}</p>
-            <p className=''>{job.phoneNumber}</p>
+            <p className=''>{data?.name}</p>
+            <p className=''>{data?.email}</p>
+            <p className=''>{data?.phoneNumber}</p>
             <p className=''>
-              {job.number} {job.street}, {job.city}, {job.zipCode}
+              {data?.unitNumber ? `${data?.unitNumber}/` : null}{data?.number} {data?.street}, {data?.city}, {data?.zipCode}
             </p>
           </div>
 
@@ -113,14 +116,14 @@ const JobCard = ({ job, jobs }: Props) => {
           </p>
           <div className='my-3 grid w-full grid-cols-2 lg:text-center'>
             <div className='w-80'>
-              <p className=''>{job.title}</p>
-              <p className=''>Price: ${job.price}</p>
+              <p className=''>{data?.title}</p>
+              <p className=''>Price: ${data?.price}</p>
               <p className=''>
-                {moment(job.time).format('DD/MMM/YYYY - hh:mm a')}
+                {moment(data?.time).format('DD/MMM/YYYY - hh:mm a')}
               </p>
             </div>
             <div className='w-20'>
-              <p className='text-center'>{job.completed.toString()}</p>
+              <p className='text-center'>{data?.completed.toString()}</p>
             </div>
           </div>
 
@@ -149,41 +152,8 @@ const JobCard = ({ job, jobs }: Props) => {
           </form>
         </div>
       </div>
-      <div className='color-primary col-span-1 mb-2 hidden rounded lg:col-span-4 lg:block'>
-        <JobFeed jobs={jobs} />
-      </div>
     </div>
   );
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  try {
-    const job: JobInterface = await jobQueries.getJobById(params.slug);
-    const { data: jobs } = await jobQueries.getUncompletedJobs();
-
-    return {
-      props: {
-        job,
-        jobs,
-      },
-      revalidate: 10,
-    };
-  } catch (error) {
-    return {
-      props: {
-        data: null,
-      },
-    };
-  }
-};
-
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const { data: jobs } = await jobQueries.getUncompletedJobs();
-
-  return {
-    paths: jobs.map(({ id }: JobInterface) => ({ params: { slug: id } })),
-    fallback: true,
-  };
 };
 
 export default JobCard;

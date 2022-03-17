@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import { JobInterface } from '../../index.dev';
 import { jobQueries } from '../../services/faunadb';
 
@@ -11,11 +11,9 @@ type Props = {
 const Job = ({ job }: Props) => {
   const router = useRouter();
   
-  const handleJobCompleted = async (event: MouseEvent) => {
-    event.preventDefault();
-
+  const handleJobCompleted = async () => {
     await jobQueries.completeJob(job.id, !job.completed)
-      .then(router.reload());
+      .then(() => router.reload());
   }
 
   return (
@@ -45,7 +43,7 @@ const Job = ({ job }: Props) => {
                 role='switch'
                 name='jobComplete'
                 className='switch'
-                onClick={(e) => handleJobCompleted(e)}
+                onChange={() => handleJobCompleted()}
               />
             </>
           ) : (
@@ -62,8 +60,6 @@ const Job = ({ job }: Props) => {
                 role='switch'
                 name='jobComplete'
                 className='switch'
-                defaultChecked={true}
-                onClick={(e) => handleJobCompleted(e)}
               />
             </>
           )}

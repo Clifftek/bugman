@@ -4,23 +4,21 @@ import { JobInterface } from '../../index.dev';
 import { flattenData } from './flattenData';
 
 const {
-  Paginate,
-  Get,
-  Map,
   Collection,
-  Documents,
   Update,
-  Lambda,
-  Var,
-  Match,
-  Index,
   Ref,
   Create,
   Delete,
+  Map,
+  Paginate,
+  Documents,
+  Lambda,
+  Get,
+  Var,
 } = faunadb.query;
 
 class QueryManager {
-  client: any;
+  client: any
 
   constructor() {
     this.client = new faunadb.Client({
@@ -42,34 +40,15 @@ class QueryManager {
       .catch((error: any) => error);
   }
 
-  getUncompletedJobs() {
-    return this.client
-      .query(
-        Map(
-          Paginate(Match(Index('uncompleted_jobs'), false)),
-          Lambda('ref', Get(Var('ref')))
-        )
-      )
-      .then((res: any) => flattenData(res))
-      .catch((error: any) => error);
-  }
-
-  getJobById(id: string) {
-    return this.client
-      .query(Get(Ref(Collection('Jobs'), id)))
-      .then((res: any) => flattenData(res))
-      .catch((error: any) => error);
-  }
-
-  createJob(data: JobInterface) {
-    return this.client
+  async createJob(data: JobInterface) {
+    await this.client
       .query(Create(Collection('Jobs'), { data }))
       .then((res: any) => flattenData(res))
       .catch((error: any) => error);
   }
 
-  updateJob(data: JobInterface, id: string) {
-    return this.client
+  async updateJob(data: JobInterface, id: string) {
+    await this.client
       .query(
         Update(Ref(Collection('Jobs'), id), {
           data,
@@ -78,8 +57,8 @@ class QueryManager {
       .catch((error: any) => error);
   }
 
-  completeJob(id: string, value: boolean) {
-    return this.client
+  async completeJob(id: string, value: boolean) {
+    await this.client
       .query(
         Update(Ref(Collection('Jobs'), id), {
           data: { completed: value },
@@ -88,8 +67,8 @@ class QueryManager {
       .catch((error: any) => error);
   }
 
-  deleteJob(id: string) {
-    return this.client
+  async deleteJob(id: string) {
+    await this.client
       .query(Delete(Ref(Collection('Jobs'), id)))
       .catch((error: any) => error);
   }

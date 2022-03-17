@@ -11,7 +11,7 @@ class MyDocument extends Document {
           <link
             rel='apple-touch-icon'
             sizes='190x190'
-            href='/icon-192x192.png'
+            href='/icon-384x384.png'
           />
           <link
             rel='favicon.ico'

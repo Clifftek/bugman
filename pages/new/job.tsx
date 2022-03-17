@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { jobQueries } from '../../services/faunadb';
-import moment from 'moment';
 import { useRouter } from 'next/router';
 
 const CreateJob = () => {
@@ -14,6 +13,7 @@ const CreateJob = () => {
       email: '',
       phoneNumber: '',
       number: null,
+      unitNumber: null,
       street: '',
       city: '',
       zipCode: null,
@@ -21,16 +21,16 @@ const CreateJob = () => {
       description: '',
       price: null,
       time: '',
-      createdAt: moment.now(),
     },
     onSubmit: async (values) => {
       await jobQueries.createJob(values)
-        .then(router.push(`/jobs/${values.id}`));
+        .then(() => router.replace('/'));
     },
   });
 
   return (
     <form
+      autoComplete='off'
       onSubmit={formik.handleSubmit}
       className='mx-auto flex h-full w-80 flex-col justify-center'
     >
@@ -61,7 +61,7 @@ const CreateJob = () => {
         id='time'
         type='datetime-local'
         onChange={formik.handleChange}
-        className='mx-auto mb-4 rounded-lg bg-white p-2'
+        className='mx-auto mb-4 rounded-lg bg-white p-3'
       />
       <p className='py-2 text-center text-xl'>Customer Details</p>
       <input
@@ -84,7 +84,7 @@ const CreateJob = () => {
         className='placeholder:text-primary rounded-lg p-2 placeholder:italic'
         placeholder='Phone Number'
       />
-      <label className='pt-4 pb-2 text-xl' htmlFor='number'>
+      <label className='pt-4 pb-2 text-xl text-center' htmlFor='number'>
         Address
       </label>
       <div className='flex flex-row'>
@@ -94,6 +94,13 @@ const CreateJob = () => {
           onChange={formik.handleChange}
           className='placeholder:text-primary mr-2 w-12 rounded-lg p-2 placeholder:italic'
           placeholder='#'
+        />
+        <input
+          id='unitNumber'
+          type='unitNumber'
+          onChange={formik.handleChange}
+          className='placeholder:text-primary mr-2 w-12 rounded-lg p-2 pl-0 placeholder:italic'
+          placeholder='Unit'
         />
         <input
           id='street'

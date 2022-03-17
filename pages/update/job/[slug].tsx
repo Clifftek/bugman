@@ -2,20 +2,35 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { jobQueries } from '../../../services/faunadb';
 import { useRouter } from 'next/router';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { JobInterface } from '../../../index.dev';
+import useSWR, { SWRResponse } from 'swr';
+import { ErrorMessage, Loader } from '../../../components';
 
-const UpdateJob = ({ job }: any) => {
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+const UpdateJob = () => {
   const router = useRouter();
+  const { slug } = router.query;
+  const { data, error }: SWRResponse = useSWR(
+    slug ? `/api/jobs/${slug}` : null,
+    fetcher
+  );
+  
   const formik = useFormik({
     initialValues: {
-      ...job
+      ...data,
     },
     onSubmit: async (values) => {
-      await jobQueries.updateJob(values, job.id)
-        .then(router.push(`/jobs/${values.id}`));
+      await jobQueries
+        .updateJob(values, data.id)
+        .then(() => router.replace(`/jobs/${data.id}`));
     },
   });
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+
+  if (error) return <ErrorMessage />;
 
   return (
     <form
@@ -53,7 +68,7 @@ const UpdateJob = ({ job }: any) => {
         type='datetime-local'
         onChange={formik.handleChange}
         value={formik.values.time}
-        className='mx-auto mb-4 rounded-lg bg-white p-2'
+        className='mx-auto mb-4 rounded-lg bg-white p-3'
       />
       <p className='py-2 text-center text-xl'>Customer Details</p>
       <input
@@ -79,7 +94,7 @@ const UpdateJob = ({ job }: any) => {
         className='placeholder:text-primary rounded-lg p-2 placeholder:italic'
         placeholder='Phone Number'
       />
-      <label className='pt-4 pb-2 text-xl' htmlFor='number'>
+      <label className='pt-4 pb-2 text-xl text-center' htmlFor='number'>
         Address
       </label>
       <div className='flex flex-row'>
@@ -88,6 +103,14 @@ const UpdateJob = ({ job }: any) => {
           type='number'
           onChange={formik.handleChange}
           value={formik.values.number}
+          className='placeholder:text-primary mr-2 w-12 rounded-lg p-2 placeholder:italic'
+          placeholder='#'
+        />
+        <input
+          id='unitNumber'
+          type='unitNumber'
+          onChange={formik.handleChange}
+          value={formik.values.unitNumber}
           className='placeholder:text-primary mr-2 w-12 rounded-lg p-2 placeholder:italic'
           placeholder='#'
         />
@@ -126,33 +149,6 @@ const UpdateJob = ({ job }: any) => {
       </button>
     </form>
   );
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  try {
-    const job: JobInterface = await jobQueries.getJobById(params.slug);
-    
-    return {
-      props: {
-        job,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        data: null,
-      },
-    };
-  }
-};
-
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const { data: jobs } = await jobQueries.getAllJobs();
-
-  return {
-    paths: jobs.map(({ id }: JobInterface) => ({ params: { slug: id } })),
-    fallback: true,
-  };
 };
 
 export default UpdateJob;

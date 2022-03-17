@@ -32,25 +32,26 @@ const Layout = ({ children }: Props) => {
   }
   return (
     <>
-      <div className='flex h-[100vh] w-full flex-col items-center pt-48 overflow-auto bg-neutral-300 p-2 lg:mt-24'>
-      <Image
+      <div className='flex h-[100vh] w-full flex-col items-center overflow-auto bg-neutral-300 p-2 pt-48 lg:mt-24'>
+        <Image
           src='/icon-512x512.png'
           alt='bugman logo'
           className=''
           height='100px'
           width='120px'
         />
-        <p className='text-primary display-font tracking-wider my-6 text-center text-5xl font-semibold'>
-          Welcome to the Bugman employee App
+        <p className='text-primary display-font my-6 px-6 text-center text-5xl font-semibold'>
+          Welcome to the 1300 Bugman App
         </p>
-        <div className=''>
-          <a
-            href='/api/auth/login'
-            className='block w-60 rounded-full border-2 border-violet-500 bg-violet-300 p-4 text-center text-xl font-semibold'
-          >
-            Log in
-          </a>
-        </div>
+        <a
+          href='/api/auth/login'
+          className='block w-60 rounded-full border-2 border-violet-500 bg-violet-300 p-4 text-center text-xl font-semibold'
+        >
+          Log in
+        </a>
+        <p className='pt-8 text-center text-red-500'>
+          <span className="text-lg text-normal">Note: </span> This application is intended for employees of 1300 Bugman only.
+        </p>
       </div>
     </>
   );
