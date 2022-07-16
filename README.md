@@ -1,1 +1,1 @@
-This is a project I have built for my current employer
+This is a web-app I'am currently building for my current employer
